@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:weather_app_challenge/screens/loading_screen.dart';
 
-const purple = Color.fromRGBO(100, 12, 170, 1);
-const blue = Color.fromRGBO(0, 9, 234, 0.79);
-const greenGradient = LinearGradient(
-  colors: [
-    Color.fromRGBO(140, 255, 144, 1),
-    Color.fromRGBO(133, 255, 233, 1),
-  ],
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
-);
-void main() {
+
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -21,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Weather App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(),
       home: const WeatherApp(),
     );
@@ -32,8 +27,10 @@ class WeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Hello World"),
+    return Scaffold(
+      body: SafeArea(
+        child: LoadingScreen(),
+      ),
     );
   }
 }
