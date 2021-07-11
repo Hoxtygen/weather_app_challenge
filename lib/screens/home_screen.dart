@@ -57,12 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
   updateOneCallWeatherReport(dynamic oneCallWeatherInfo) {
     setState(() {
       hourly = oneCallWeatherInfo["hourly"];
-      var sunrise = DateTime.fromMillisecondsSinceEpoch(
-          oneCallWeatherInfo["current"]["sunrise"] * 1000,
-          isUtc: true);
-      var sunset = DateTime.fromMillisecondsSinceEpoch(
-          oneCallWeatherInfo["current"]["sunset"] * 1000,
-          isUtc: true);
       bool hasHourly = oneCallWeatherInfo['hourly'] != null;
       var now = DateTime.now();
       var nextMidnight = DateTime(now.year, now.month, now.day + 1);
@@ -91,18 +85,16 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         body: Container(
           // color: Color(0xff6b58c9),
-         decoration: BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 kPurple,
                 kBlue,
-                
-                
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomCenter,
             ),
-          ), 
+          ),
           constraints: BoxConstraints.expand(),
           child: Column(
             children: [
@@ -120,6 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     PopupMenuButton(
+                      icon: Icon(
+                        Icons.more_vert,
+                        color: Colors.white,
+                      ),
+                      iconSize: 30.0,
                       itemBuilder: (BuildContext context) => [
                         PopupMenuItem(
                           child: Text("Add Cities"),
@@ -145,15 +142,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          weatherDescription,
-                          style: TextStyle(color: Colors.white, fontSize: 25.0),
-                        ),
-                        Text(
-                          date,
+                          normaliseName(weatherDescription),
                           style: TextStyle(
-                            color: Colors.white54,
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Text(
+                            date,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize:16,
+                            ),
                           ),
                         ),
                       ],
@@ -221,4 +228,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

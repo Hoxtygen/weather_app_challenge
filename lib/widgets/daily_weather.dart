@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
 
-
 class DailyWeather extends StatelessWidget {
   DailyWeather(this.weather);
   final weather;
@@ -31,7 +30,7 @@ class DailyWeather extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 hourlyTime,
@@ -43,20 +42,23 @@ class DailyWeather extends StatelessWidget {
               ),
               mapIconToImage(this.weather["weather"][0]["icon"]),
               Text(
-                this.weather["weather"][0]["description"],
+                normaliseName(this.weather["weather"][0]["description"]),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white60,
-                  fontWeight:FontWeight.w700,
-                  fontSize:20,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 20,
                 ),
               ),
-              Text(
-                "${temp.toString()}\u00B0\u1d9c",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
+              Padding(
+                 padding: const EdgeInsets.only(top: 10),
+                child: Text(
+                  "${temp.toString()}\u00B0\u1d9c",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],
