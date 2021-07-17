@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app_challenge/services/weather.dart';
 import 'package:weather_app_challenge/utils/constants.dart';
+import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
 
 class LocationScreen extends StatefulWidget {
   @override
@@ -10,6 +10,13 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
+    var appBar = AppBar();
+    List city = [
+      "Lagos",
+      "Lisbon",
+      "London",
+      
+    ];
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -21,12 +28,15 @@ class _LocationScreenState extends State<LocationScreen> {
             icon: Icon(Icons.arrow_back_ios),
           ),
           centerTitle: true,
+          elevation: 0,
         ),
         body: Container(
-          // color: Colors.blueAccent,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [kPurple, kBlue,],
+              colors: [
+                kPurple,
+                kBlue,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomCenter,
             ),
@@ -34,16 +44,27 @@ class _LocationScreenState extends State<LocationScreen> {
           constraints: BoxConstraints.expand(),
           child: Column(
             children: [
-              Text('I am going to contain cities'),
+              Container(
+                child: Column(children: [
+                  Expanded(
+                    child: buildCity(city),
+                  )
+                ]),
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height) /
+                    1.3,
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text('Bottom Button!',
-                      style: TextStyle(fontSize: 20)),
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      'ADD CITY',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
                 ),
               ),
             ],

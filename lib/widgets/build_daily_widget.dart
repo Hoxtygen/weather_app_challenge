@@ -1,10 +1,24 @@
 import 'package:flutter/cupertino.dart';
+import 'package:weather_app_challenge/widgets/city_widget.dart';
 import 'package:weather_app_challenge/widgets/daily_weather.dart';
 
 Widget buildHourlySummary(List hourlyForecast) {
   return Wrap(
       direction: Axis.horizontal,
       children: hourlyForecast.map((item) => DailyWeather(item)).toList());
+}
+
+Widget buildCity(List city) {
+  return Wrap(
+    direction: Axis.vertical,
+    children: city.map((item) => CityWidget(item)).toList(),
+  );
+  /*  ListView.builder(
+    itemCount: city.length,
+    shrinkWrap: true,
+    itemBuilder: (BuildContext context, int index) {
+    return CityWidget(city[index]);
+  }); */
 }
 
 Widget mapIconToImage(String icon) {

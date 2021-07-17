@@ -39,9 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
       double temp = weatherInfo["main"]["temp"];
       temperature = temp.toInt();
       cityName = weatherInfo["name"];
-      var condition = weatherInfo["weather"][0]["id"];
-      weatherIcon = weather.getWeatherIcon(condition);
-      // weatherDescription = weather.getMessage(temperature);
       weatherDescription = weatherInfo["weather"][0]["description"];
       var weatherDate = DateTime.fromMillisecondsSinceEpoch(
           weatherInfo["dt"] * 1000,
@@ -159,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Colors.white70,
-                              fontSize:16,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -168,10 +165,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       "${temperature.toString()}\u00B0\u1d9c",
                       style: TextStyle(
-                        fontSize: 70.0,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white38,
-                      ),
+                          fontSize: 80.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white38,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(1.0, 1.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(100, 100, 100, 100),
+                            ),
+                            Shadow(
+                              offset: Offset(1.0, 1.0),
+                              blurRadius: 5.0,
+                              color: Color.fromARGB(125, 255, 255, 255),
+                            ),
+                          ]),
                     )
                   ],
                 ),
