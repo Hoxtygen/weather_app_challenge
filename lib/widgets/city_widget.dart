@@ -29,7 +29,7 @@ class _CityWidgetState extends State<CityWidget> {
           return Container(
             height: 20.0,
             child: CircularProgressIndicator(
-              color: Colors.red,
+              color: Colors.purple,
             ),
           );
         }
