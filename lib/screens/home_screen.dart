@@ -165,21 +165,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       "${temperature.toString()}\u00B0\u1d9c",
                       style: TextStyle(
-                          fontSize: 80.0,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white38,
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(1.0, 1.0),
-                              blurRadius: 3.0,
-                              color: Color.fromARGB(100, 100, 100, 100),
-                            ),
-                            Shadow(
-                              offset: Offset(1.0, 1.0),
-                              blurRadius: 5.0,
-                              color: Color.fromARGB(125, 255, 255, 255),
-                            ),
-                          ]),
+                        fontSize: 80.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white38,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(-1.5, -1.5),
+                            color: Color(0xffBFA6E8),
+                          ),
+                          Shadow(
+                            offset: Offset(1.5, -1.5),
+                            color: Color(0xffBFA6E8),
+                          ),
+                          Shadow(
+                            offset: Offset(1.5, 1.5),
+                            color: Color(0xff7E59C9),
+                          ),
+                          Shadow(
+                            offset: Offset(-1.5, 1.5),
+                            color: Color(0xff7E59C9),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
