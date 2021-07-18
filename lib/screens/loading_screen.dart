@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:weather_app_challenge/screens/home_screen.dart';
 import 'package:weather_app_challenge/services/weather.dart';
 
@@ -17,14 +18,37 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getLocationData() async {
-    WeatherModel weatherModel = WeatherModel();
-    var weatherData = await weatherModel.getLocationWeather();
-    var oneCallData = await weatherModel.getLocationWeatherOneCall();
+    try {
+      WeatherModel weatherModel = WeatherModel();
+      var weatherData = await weatherModel.getLocationWeather();
+      var oneCallData = await weatherModel.getLocationWeatherOneCall();
 
-
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return HomeScreen(weatherData, oneCallData);
-    }));
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return HomeScreen(weatherData, oneCallData);
+      }));
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Center(
+              child: Text(
+                'Location permission notification',
+              ),
+            ),
+            content: Text(e.toString()),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                },
+                child: Text('Okay'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override

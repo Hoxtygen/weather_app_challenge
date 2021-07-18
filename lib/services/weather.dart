@@ -8,36 +8,31 @@ final openWeatherMapUrlOneCall =
     "https://api.openweathermap.org/data/2.5/onecall";
 
 class WeatherModel {
-  WeatherModel({this.latitude, this.longitude});
-  double? latitude;
-  double? longitude;
   Future<dynamic> getCityWeather(String cityName) async {
-    final url =
-        Uri.parse("$openWeatherMapUrl?q=$cityName&appid=$apiKey&units=metric");
-    NetworkHelper networkHelper = NetworkHelper(url);
-    var weatherData = await networkHelper.getData();
-    return weatherData;
+    try {
+      final url = Uri.parse(
+          "$openWeatherMapUrl?q=$cityName&appid=$apiKey&units=metric");
+      NetworkHelper networkHelper = NetworkHelper(url);
+      var weatherData = await networkHelper.getData();
+      return weatherData;
+    } catch (e) {
+      print("Error: $e");
+    }
   }
 
   Future<dynamic> getLocationWeather() async {
     try {
       Location location = Location();
-      final position = await location.getCurrentLocation();
-      print(position.latitude);
-      print(position.longitude);
-      latitude = position.latitude;
-      longitude = position.longitude;
+      await location.getCurrentLocation();
       final url = Uri.parse(
-          "$openWeatherMapUrl?lat=${latitude}&lon=${longitude}&appid=$apiKey&units=metric");
+          "$openWeatherMapUrl?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric");
 
       NetworkHelper networkHelper = NetworkHelper(url);
-      print("url: $url");
       var weatherData = await networkHelper.getData();
 
       return weatherData;
-    } catch (error) {
-      print("Location Denied Error:${error.toString()}");
-      print("Location Denied Error Object:${error}");
+    } catch (e) {
+      print(e);
     }
   }
 

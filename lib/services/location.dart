@@ -1,44 +1,40 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:one_context/one_context.dart';
-import 'package:flutter/material.dart';
+
 
 class Location {
   Location({this.latitude, this.longitude});
   double? latitude;
   double? longitude;
 
-  Future<Position> getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      Fluttertoast.showToast(msg: "Please put on your location");
+      return Future.error('Location services are disabled.');
     }
+
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        Fluttertoast.showToast(msg: "Location permission denied");
+        return Future.error('Location permissions are denied');
       }
     }
 
-    if (permission == LocationPermission.denied) {
-      Fluttertoast.showToast(msg: "Location permission denied forever");
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied. To use this app, go to Settings on your phone and enable permission for this app.');
     }
 
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    // latitude = position.latitude;
-    // longitude = position.longitude;
-    /* catch (error) {
-      print("Location Denied Error:${error.toString()}");
-      print("Location Denied Error Object:${error}");
-      Fluttertoast.showToast(msg: error.toString());
-      return error;
-      // example snackBar
-
-    } */
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      latitude = position.latitude;
+      longitude = position.longitude;
+    } catch (error) {
+      print(error);
+    }
   }
 }
