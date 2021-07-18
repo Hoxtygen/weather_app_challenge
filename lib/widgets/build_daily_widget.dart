@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:weather_app_challenge/widgets/city_widget.dart';
 import 'package:weather_app_challenge/widgets/daily_weather.dart';
 
@@ -122,3 +123,5 @@ String normaliseName(String name) {
 
   return stringBuffer.toString();
 }
+
+
