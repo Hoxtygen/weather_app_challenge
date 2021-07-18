@@ -12,7 +12,7 @@ class NetworkHelper {
       String data = response.body;
       return jsonDecode(data);
     } else {
-      throw Exception('error retrieving weather: ${response.statusCode}');
+      throw Exception('error retrieving weather: ${response.body}');
     }
   }
 }
