@@ -31,11 +31,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Center(
-              child: Text(
-                'Location permission notification',
-              ),
-            ),
             content: Text(e.toString()),
             actions: [
               TextButton(
