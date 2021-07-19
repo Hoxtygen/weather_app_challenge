@@ -47,3 +47,5 @@ app.*.map.json
 
 
 *.env
+errI.dart
+lib/widgets/error_widget.dart

@@ -6,13 +6,15 @@ class NetworkHelper {
   NetworkHelper(this.url);
   final Uri url;
 
-  Future getData() async {
+  Future<dynamic> getData() async {
+    
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {
       String data = response.body;
       return jsonDecode(data);
     } else {
-      throw Exception('error retrieving weather: ${response.body}');
+      throw Exception(' ${jsonDecode(response.body)["message"]}');
     }
   }
 }
+
