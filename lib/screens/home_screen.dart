@@ -81,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          // color: Color(0xff6b58c9),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
