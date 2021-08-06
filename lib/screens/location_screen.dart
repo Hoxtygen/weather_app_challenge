@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app_challenge/controller/city_notifier.dart';
+import 'package:weather_app_challenge/screens/new_city_form.dart';
 import 'package:weather_app_challenge/utils/constants.dart';
 import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
 
-class LocationScreen extends StatefulWidget {
-  @override
-  _LocationScreenState createState() => _LocationScreenState();
-}
-
-class _LocationScreenState extends State<LocationScreen> {
+class LocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appBar = AppBar();
-    List city = [
-      "Lagos",
-      "Lisbon",
-      "London",
-    ];
+    final cities = Provider.of<CityNotifier>(context, listen: false).citiesList;
     return SafeArea(
       child: Scaffold(
-        //  extendBodyBehindAppBar: true,
-        // backgroundColor:Colors.transparent,
-
         appBar: AppBar(
-          // backgroundColor: Colors.transparent,
           flexibleSpace: Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-              colors: [Color(0xff6300B4), Color(0xff5802B7)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            )),
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xff6300B4),
+                  Color(0xff5802B7),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
           ),
           title: Text("Manage City"),
           leading: IconButton(
@@ -58,7 +52,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Container(
                 child: Column(children: [
                   Expanded(
-                    child: buildCity(city),
+                    child: buildCity(context, cities),
                   )
                 ]),
                 height: (MediaQuery.of(context).size.height -
@@ -68,7 +62,14 @@ class _LocationScreenState extends State<LocationScreen> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewCityForm(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white.withOpacity(0.1),
                     // onPrimary: Colors.white,

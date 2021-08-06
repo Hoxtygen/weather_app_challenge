@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app_challenge/model/city_model.dart';
 import 'package:weather_app_challenge/widgets/city_widget.dart';
 import 'package:weather_app_challenge/widgets/daily_weather.dart';
 
@@ -9,18 +10,18 @@ Widget buildHourlySummary(List hourlyForecast) {
       children: hourlyForecast.map((item) => DailyWeather(item)).toList());
 }
 
-Widget buildCity(List city) {
-  return Wrap(
-    direction: Axis.vertical,
-    children: city.map((item) => CityWidget(item)).toList(),
+Widget buildCity(context, List<CityModel> city) {
+  return SizedBox(
+    width: MediaQuery.of(context).size.width * .8,
+    child: ListView.builder(
+        itemCount: city.length,
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          return CityWidget(city[index]);
+        }),
   );
-  /*  ListView.builder(
-    itemCount: city.length,
-    shrinkWrap: true,
-    itemBuilder: (BuildContext context, int index) {
-    return CityWidget(city[index]);
-  }); */
 }
+
 
 Widget mapIconToImage(String icon) {
   Image image;
@@ -123,5 +124,3 @@ String normaliseName(String name) {
 
   return stringBuffer.toString();
 }
-
-
