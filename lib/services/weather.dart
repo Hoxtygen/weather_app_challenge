@@ -1,10 +1,11 @@
 import 'dart:io';
-
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:weather_app_challenge/model/city_model.dart';
 import 'package:weather_app_challenge/services/location.dart';
 import 'package:weather_app_challenge/services/networking.dart';
 
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 // final apiKey = dotenv.env['weather_api_key'];
+
 final apiKey = "be7a9eaa123d662f550405bc335bc372";
 
 final openWeatherMapUrl = "https://api.openweathermap.org/data/2.5/weather";
@@ -12,7 +13,8 @@ final openWeatherMapUrlOneCall =
     "https://api.openweathermap.org/data/2.5/onecall";
 
 class WeatherModel {
-  Future<dynamic> getCityWeather(String cityName) async {
+  Future<dynamic> getCityWeather(CityModel city) async {
+    final cityName = city.cityName;
     try {
       final url = Uri.parse(
           "$openWeatherMapUrl?q=$cityName&appid=$apiKey&units=metric");
@@ -20,14 +22,14 @@ class WeatherModel {
       var weatherData = await networkHelper.getData();
       return weatherData;
     } catch (e) {
-      print("Error: $e");
+      return e;
     }
   }
 
   Future<dynamic> getLocationWeather() async {
     try {
       Location location = Location();
-      await location.getCurrentLocation();
+      await location.getCurrentLocationCoordinate();
       final url = Uri.parse(
           "$openWeatherMapUrl?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric");
 
@@ -45,7 +47,7 @@ class WeatherModel {
 
   Future<dynamic> getLocationWeatherOneCall() async {
     Location location = Location();
-    await location.getCurrentLocation();
+    await location.getCurrentLocationCoordinate();
     final oneCallUrl = Uri.parse(
         "$openWeatherMapUrlOneCall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely,daily&appid=$apiKey&units=metric");
     NetworkHelper networkHelper = NetworkHelper(oneCallUrl);

@@ -7,14 +7,11 @@ class NetworkHelper {
   final Uri url;
 
   Future<dynamic> getData() async {
-    
     http.Response response = await http.get(url);
-    if (response.statusCode == 200) {
-      String data = response.body;
-      return jsonDecode(data);
+    if (response.statusCode != 200) {
+      return jsonDecode(response.body);
     } else {
-      throw Exception(' ${jsonDecode(response.body)["message"]}');
+      return jsonDecode(response.body);
     }
   }
 }
-

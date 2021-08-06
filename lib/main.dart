@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app_challenge/screens/loading_screen.dart';
+import 'package:weather_app_challenge/widgets/dismiss_keyboard.dart';
+
+import 'controller/city_notifier.dart';
+import 'model/home_screen_view.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 Future main() async {
   await dotenv.load(fileName: ".env");
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<HomeScreenViewModel>(
+          create: (_) => HomeScreenViewModel()),
+      ChangeNotifierProvider(create: (_) => CityNotifier())
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,11 +25,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Weather App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
-      home: const WeatherApp(),
+    return DismissKeyboard(
+      child: MaterialApp(
+        title: 'Weather App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(),
+        home: const WeatherApp(),
+      ),
     );
   }
 }

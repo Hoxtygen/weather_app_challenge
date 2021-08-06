@@ -48,4 +48,6 @@ app.*.map.json
 
 *.env
 errI.dart
-lib/widgets/error_widget.dart
+lib/model/weather_model.dart
+
+TODO
