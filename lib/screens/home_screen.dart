@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       iconSize: 30.0,
                       itemBuilder: (BuildContext context) => [
                         PopupMenuItem(
-                          child: Text("Add Cities"),
+                          child: Text("Manage Cities"),
                           value: "Add cities",
                         )
                       ],

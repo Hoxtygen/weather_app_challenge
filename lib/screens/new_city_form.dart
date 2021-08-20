@@ -14,8 +14,6 @@ class _NewCityFormState extends State<NewCityForm> {
   final FocusNode focusNode = new FocusNode();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String cityName;
-  bool _btnEnabled = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,10 +91,10 @@ class _NewCityFormState extends State<NewCityForm> {
                       Provider.of<CityNotifier>(context, listen: false)
                           .addCity(cityName);
                       FocusScope.of(context).requestFocus(focusNode);
-                      Navigator.push(
+                      Navigator.pushReplacement<void, void>(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => LocationScreen()));
+                          MaterialPageRoute<void>(
+                              builder: (BuildContext context) => LocationScreen()));
                     }
                   },
                   child: Padding(

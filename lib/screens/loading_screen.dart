@@ -51,7 +51,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Center(
       child: Container(
         child: CircularProgressIndicator(
-          color: Colors.red,
+          color: Color(0xff6300B4),
         ),
       ),
     );
