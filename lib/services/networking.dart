@@ -15,7 +15,7 @@ class NetworkHelper {
       final response = await http.get(url);
       responseJson = _responseData(response);
     } on SocketException {
-      throw Exception('error retrieving location for ');
+      throw Exception('error retrieving location');
     }
     return responseJson;
   }
