@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:intl/intl.dart';
+import 'package:weather_app_challenge/model/forecast_model.dart';
 import 'package:weather_app_challenge/screens/location_screen.dart';
-import 'package:weather_app_challenge/services/weather.dart';
 import 'package:weather_app_challenge/utils/constants.dart';
 import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
 import 'package:weather_app_challenge/widgets/circle_tab.dart';
@@ -16,8 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  WeatherModel weather = WeatherModel();
-  WeatherModel oneCallWeather = WeatherModel();
   late int temperature;
   late String cityName;
   late String weatherDescription;
@@ -36,14 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   updateWeatherReport(dynamic weatherInfo) {
     setState(() {
-      double temp = weatherInfo["main"]["temp"];
-      temperature = temp.toInt();
-      cityName = weatherInfo["name"];
-      weatherDescription = weatherInfo["weather"][0]["description"];
-      var weatherDate = DateTime.fromMillisecondsSinceEpoch(
-          weatherInfo["dt"] * 1000,
-          isUtc: false);
-      date = DateFormat.MMMMEEEEd().format(weatherDate);
+      temperature = weatherInfo.temp;
+      cityName = weatherInfo.cityName;
+      weatherDescription = weatherInfo.description;
+      date = weatherInfo.date;
     });
   }
 
@@ -51,28 +44,24 @@ class _HomeScreenState extends State<HomeScreen> {
     return DateTime.fromMillisecondsSinceEpoch(date * 1000, isUtc: true);
   }
 
-  updateOneCallWeatherReport(dynamic oneCallWeatherInfo) {
+  updateOneCallWeatherReport(ForecastModel oneCallWeatherInfo) {
+    print(oneCallWeatherInfo);
     setState(() {
-      hourly = oneCallWeatherInfo["hourly"];
-      bool hasHourly = oneCallWeatherInfo['hourly'] != null;
       var now = DateTime.now();
       var nextMidnight = DateTime(now.year, now.month, now.day + 1);
+      List items = oneCallWeatherInfo.hourly;
+      todayHourly = items
+          .where((element) => convert(element["dt"]).isBefore(nextMidnight))
+          .toList()
+          .skip(2)
+          .take(3)
+          .toList();
 
-      if (hasHourly) {
-        List items = oneCallWeatherInfo["hourly"];
-        todayHourly = items
-            .where((element) => convert(element["dt"]).isBefore(nextMidnight))
-            .toList()
-            .skip(2)
-            .take(3)
-            .toList();
-
-        tomorrowTempHourly = items
-            .where((element) => convert(element["dt"]).isAfter(nextMidnight))
-            .toList()
-            .take(3)
-            .toList();
-      }
+      tomorrowTempHourly = items
+          .where((element) => convert(element["dt"]).isAfter(nextMidnight))
+          .toList()
+          .take(3)
+          .toList();
     });
   }
 

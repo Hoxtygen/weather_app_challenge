@@ -47,8 +47,7 @@ app.*.map.json
 
 
 *.env
-lib/model/weather_model.dart
-lib/model/sample_forecast_model.dart
+lib/model/forecast_model.dart
 lib/screens/current_weather.dart
-
+lib/controller/forecast_notifier.dart
 TODO
