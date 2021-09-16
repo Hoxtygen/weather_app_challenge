@@ -12,10 +12,10 @@ import 'package:weather_app_challenge/services/networking.dart';
 
 // showing the api key is intentional, it's  so that anyone can test this
 // app without having to register with openweathermap to get own api key.
-final apiKey = "be7a9eaa123d662f550405bc335bc372";
+const apiKey = "be7a9eaa123d662f550405bc335bc372";
 
-final openWeatherMapUrl = "https://api.openweathermap.org/data/2.5/weather";
-final openWeatherMapUrlOneCall =
+const openWeatherMapUrl = "https://api.openweathermap.org/data/2.5/weather";
+const openWeatherMapUrlOneCall =
     "https://api.openweathermap.org/data/2.5/onecall";
 
 class WeatherModel {
@@ -41,13 +41,14 @@ class WeatherModel {
   }
 
 // get daily/hourly data of current location using current longitude and latitude
-  Future<ForecastModel> getLocationWeatherOneCall() async {
+  Future<dynamic> getLocationWeatherOneCall() async {
     Location location = Location();
     await location.getCurrentLocationCoordinate();
     final oneCallUrl = Uri.parse(
         "$openWeatherMapUrlOneCall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely,daily&appid=$apiKey&units=metric");
     NetworkHelper networkHelper = NetworkHelper(oneCallUrl);
     var oneCallWeatherData = await networkHelper.getData();
-    return ForecastModel.fromJson(oneCallWeatherData);
+    return oneCallWeatherData;
+    // return ForecastModel.fromJson(oneCallWeatherData);
   }
 }

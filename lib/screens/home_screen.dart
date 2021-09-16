@@ -7,7 +7,8 @@ import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
 import 'package:weather_app_challenge/widgets/circle_tab.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen(this.locationWeatherReport, this.oneCallLocationWeatherReport);
+  const HomeScreen(
+      this.locationWeatherReport, this.oneCallLocationWeatherReport);
   final locationWeatherReport;
   final oneCallLocationWeatherReport;
   @override
@@ -44,12 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return DateTime.fromMillisecondsSinceEpoch(date * 1000, isUtc: true);
   }
 
-  updateOneCallWeatherReport(ForecastModel oneCallWeatherInfo) {
-    print(oneCallWeatherInfo);
+  updateOneCallWeatherReport(dynamic oneCallWeatherInfo) {
+    // print(oneCallWeatherInfo);
     setState(() {
       var now = DateTime.now();
       var nextMidnight = DateTime(now.year, now.month, now.day + 1);
-      List items = oneCallWeatherInfo.hourly;
+      List items = oneCallWeatherInfo["hourly"];
       todayHourly = items
           .where((element) => convert(element["dt"]).isBefore(nextMidnight))
           .toList()
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 kPurple,
@@ -80,30 +81,30 @@ class _HomeScreenState extends State<HomeScreen> {
               end: Alignment.bottomCenter,
             ),
           ),
-          constraints: BoxConstraints.expand(),
+          constraints: const BoxConstraints.expand(),
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 50),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       cityName.toUpperCase(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 25.0,
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     PopupMenuButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.more_vert,
                         color: Colors.white,
                       ),
                       iconSize: 30.0,
                       itemBuilder: (BuildContext context) => [
-                        PopupMenuItem(
+                        const PopupMenuItem(
                           child: Text("Manage Cities"),
                           value: "Add cities",
                         )
@@ -131,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           normaliseName(weatherDescription),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 25.0,
                             fontWeight: FontWeight.w600,
@@ -142,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             date,
                             textAlign: TextAlign.left,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white70,
                               fontSize: 16,
                             ),
@@ -152,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Text(
                       "${temperature.toString()}\u00B0\u1d9c",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 80.0,
                         fontWeight: FontWeight.w700,
                         color: Colors.white38,
@@ -197,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               indicatorColor: Colors.yellowAccent,
                               isScrollable: true,
                               unselectedLabelColor: Colors.white60,
-                              tabs: [
+                              tabs: const [
                                 Text(
                                   "Today",
                                   style: TextStyle(
