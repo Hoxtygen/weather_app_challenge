@@ -6,6 +6,8 @@ import 'package:weather_app_challenge/utils/constants.dart';
 import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
 
 class LocationScreen extends StatelessWidget {
+  const LocationScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var appBar = AppBar();
@@ -14,7 +16,7 @@ class LocationScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Color(0xff6300B4),
@@ -25,18 +27,18 @@ class LocationScreen extends StatelessWidget {
               ),
             ),
           ),
-          title: Text("Manage City"),
+          title: const Text("Manage City"),
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
           ),
           centerTitle: true,
           elevation: 0,
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 kPurple,
@@ -46,15 +48,17 @@ class LocationScreen extends StatelessWidget {
               end: Alignment.bottomCenter,
             ),
           ),
-          constraints: BoxConstraints.expand(),
+          constraints: const BoxConstraints.expand(),
           child: Column(
             children: [
               Container(
-                child: Column(children: [
-                  Expanded(
-                    child: buildCity(context, cities),
-                  )
-                ]),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: buildCity(context, cities),
+                    ),
+                  ],
+                ),
                 height: (MediaQuery.of(context).size.height -
                         appBar.preferredSize.height) /
                     1.3,
@@ -76,11 +80,11 @@ class LocationScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    minimumSize: Size(350, 50),
+                    minimumSize: const Size(350, 50),
                     elevation: 0,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(20.0),
                     child: Text(
                       'ADD CITY',
                       style: TextStyle(
