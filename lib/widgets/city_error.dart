@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:weather_app_challenge/model/city_model.dart';
 
 class CityError extends StatelessWidget {
-  CityError({
+  const CityError({Key? key, 
    required this.error,
     required this.cityName,
-  });
+  }) : super(key: key);
   final String error;
   final CityModel cityName;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(top: 30),
       height: 100,
       width: (MediaQuery.of(context).size.width / 1.2),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.all(Radius.circular(35)),
+        borderRadius: const BorderRadius.all(Radius.circular(35)),
         border: Border.all(
           color: Colors.white,
           width: 1,
@@ -31,7 +31,7 @@ class CityError extends StatelessWidget {
           children: [
             Text(
               cityName.cityName,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 25.0,
                 fontWeight: FontWeight.w900,

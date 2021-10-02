@@ -102,7 +102,7 @@ Widget mapIconToImage(String icon) {
       image = Image.asset("assets/icons/cloud.png");
   }
   return Padding(
-    padding: EdgeInsets.all(5),
+    padding: const EdgeInsets.all(5),
     child: image,
   );
 }

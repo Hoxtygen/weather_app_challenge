@@ -5,10 +5,13 @@ import 'package:weather_app_challenge/screens/location_screen.dart';
 import 'package:weather_app_challenge/utils/constants.dart';
 import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
 import 'package:weather_app_challenge/widgets/circle_tab.dart';
+import 'package:weather_app_challenge/widgets/current_weather_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen(
-      this.locationWeatherReport, this.oneCallLocationWeatherReport);
+      this.locationWeatherReport, this.oneCallLocationWeatherReport,
+      {Key? key})
+      : super(key: key);
   final locationWeatherReport;
   final oneCallLocationWeatherReport;
   @override
@@ -19,11 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
   late int temperature;
   late String cityName;
   late String weatherDescription;
-  late String weatherIcon;
-  late List hourly;
   late String date;
-  late List todayHourly;
-  late List tomorrowTempHourly;
+  late List<HourlyForecast> todayHourly;
+  late List<HourlyForecast> tomorrowTempHourly;
 
   @override
   void initState() {
@@ -50,16 +51,16 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       var now = DateTime.now();
       var nextMidnight = DateTime(now.year, now.month, now.day + 1);
-      List items = oneCallWeatherInfo["hourly"];
+      List<HourlyForecast> items = oneCallWeatherInfo.hourlyData;
       todayHourly = items
-          .where((element) => convert(element["dt"]).isBefore(nextMidnight))
+          .where((element) => convert(element.time).isBefore(nextMidnight))
           .toList()
           .skip(2)
           .take(3)
           .toList();
 
       tomorrowTempHourly = items
-          .where((element) => convert(element["dt"]).isAfter(nextMidnight))
+          .where((element) => convert(element.time).isAfter(nextMidnight))
           .toList()
           .take(3)
           .toList();
@@ -114,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LocationScreen()),
+                                builder: (context) => const LocationScreen()),
                           );
                         });
                       },
@@ -122,63 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          normaliseName(weatherDescription),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Text(
-                            date,
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      "${temperature.toString()}\u00B0\u1d9c",
-                      style: const TextStyle(
-                        fontSize: 80.0,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white38,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(-1.5, -1.5),
-                            color: Color(0xffBFA6E8),
-                          ),
-                          Shadow(
-                            offset: Offset(1.5, -1.5),
-                            color: Color(0xffBFA6E8),
-                          ),
-                          Shadow(
-                            offset: Offset(1.5, 1.5),
-                            color: Color(0xff7E59C9),
-                          ),
-                          Shadow(
-                            offset: Offset(-1.5, 1.5),
-                            color: Color(0xff7E59C9),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+              CurrentWeatherView(
+                temperature: temperature,
+                currentDate: date,
+                description: weatherDescription,
               ),
               Expanded(
                 child: DefaultTabController(
@@ -194,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               labelColor: Colors.white,
                               indicator: CircleTabIndicator(
                                   color: Colors.greenAccent, radius: 5),
-                              labelPadding: EdgeInsets.all(12),
+                              labelPadding: const EdgeInsets.all(12),
                               indicatorColor: Colors.yellowAccent,
                               isScrollable: true,
                               unselectedLabelColor: Colors.white60,
@@ -217,10 +165,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Expanded(
-                              child: TabBarView(children: [
-                            buildHourlySummary(todayHourly),
-                            buildHourlySummary(tomorrowTempHourly),
-                          ]))
+                            child: TabBarView(
+                              children: [
+                                buildHourlySummary(todayHourly),
+                                buildHourlySummary(tomorrowTempHourly),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     )),

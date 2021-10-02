@@ -4,7 +4,7 @@ import 'package:weather_app_challenge/model/home_screen_view.dart';
 import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
 
 class CurrentWeather extends StatelessWidget {
-  CurrentWeather(this.date, this.weatherDescription, this.temperature);
+  const  CurrentWeather(this.date, this.weatherDescription, this.temperature, {Key? key}) : super(key: key);
   final String weatherDescription;
   final String date;
   final String temperature;
@@ -22,7 +22,7 @@ class CurrentWeather extends StatelessWidget {
               children: [
                 Text(
                   normaliseName(weatherDescription),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 25.0,
                     fontWeight: FontWeight.w600,
@@ -33,7 +33,7 @@ class CurrentWeather extends StatelessWidget {
                   child: Text(
                     date,
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 16,
                     ),
@@ -43,7 +43,7 @@ class CurrentWeather extends StatelessWidget {
             ),
             Text(
               "${temperature.toString()}\u00B0\u1d9c",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 80.0,
                 fontWeight: FontWeight.w700,
                 color: Colors.white38,

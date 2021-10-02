@@ -37,7 +37,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 onPressed: () {
                   SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                 },
-                child: Text('Okay'),
+                child: const Text('Okay'),
               ),
             ],
           );
@@ -48,11 +48,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: CircularProgressIndicator(
-          color: Color(0xff6300B4),
-        ),
+    return const Center(
+      child: CircularProgressIndicator(
+        color: Color(0xff6300B4),
       ),
     );
   }

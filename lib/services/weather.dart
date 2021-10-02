@@ -41,14 +41,13 @@ class WeatherModel {
   }
 
 // get daily/hourly data of current location using current longitude and latitude
-  Future<dynamic> getLocationWeatherOneCall() async {
+  Future<ForecastModel> getLocationWeatherOneCall() async {
     Location location = Location();
     await location.getCurrentLocationCoordinate();
     final oneCallUrl = Uri.parse(
         "$openWeatherMapUrlOneCall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely,daily&appid=$apiKey&units=metric");
     NetworkHelper networkHelper = NetworkHelper(oneCallUrl);
     var oneCallWeatherData = await networkHelper.getData();
-    return oneCallWeatherData;
-    // return ForecastModel.fromJson(oneCallWeatherData);
+    return ForecastModel.fromJson(oneCallWeatherData);
   }
 }

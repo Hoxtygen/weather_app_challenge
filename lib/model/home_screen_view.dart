@@ -8,7 +8,7 @@ import 'dart:io';
 
 
 final apiKey = dotenv.env['weather_api_key'];
-final openWeatherMapUrl = "https://api.openweathermap.org/data/2.5/weather";
+const openWeatherMapUrl = "https://api.openweathermap.org/data/2.5/weather";
 
 class HomeScreenViewModel extends ChangeNotifier {
   Future<dynamic> getLocationWeather() async {

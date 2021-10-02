@@ -3,22 +3,22 @@ import 'package:weather_app_challenge/model/city_model.dart';
 import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
 
 class City extends StatelessWidget {
-  City({
+  const City({Key? key, 
     required this.weatherResult,
     required this.cityName,
-  });
+  }) : super(key: key);
   final weatherResult;
   final CityModel cityName;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(top: 30),
       height: 100,
       width: (MediaQuery.of(context).size.width / 1.2),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.all(Radius.circular(35)),
+        borderRadius:const BorderRadius.all(Radius.circular(35)),
         border: Border.all(
           color: Colors.white,
           width: 1,
@@ -32,7 +32,7 @@ class City extends StatelessWidget {
           children: [
             Text(
               normaliseName(cityName.cityName),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 25.0,
                 fontWeight: FontWeight.w900,
@@ -47,7 +47,7 @@ class City extends StatelessWidget {
                     mapIconToImage(weatherResult.icon),
                     Text(
                       weatherResult.temp.toString() + "\u00B0\u1d9c",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 25.0,
                         fontWeight: FontWeight.w800,
@@ -57,7 +57,7 @@ class City extends StatelessWidget {
                 ),
                 Text(
                   normaliseName(weatherResult.description),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white60,
                     fontSize: 15,
                     fontWeight: FontWeight.w800,

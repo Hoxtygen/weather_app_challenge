@@ -5,22 +5,22 @@ import 'package:weather_app_challenge/screens/location_screen.dart';
 import 'package:weather_app_challenge/utils/constants.dart';
 
 class NewCityForm extends StatefulWidget {
-  NewCityForm({Key? key}) : super(key: key);
+  const NewCityForm({Key? key}) : super(key: key);
   @override
   _NewCityFormState createState() => _NewCityFormState();
 }
 
 class _NewCityFormState extends State<NewCityForm> {
-  final FocusNode focusNode = new FocusNode();
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final FocusNode focusNode = FocusNode();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String cityName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.all(20.0),
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 kPurple,
@@ -40,7 +40,7 @@ class _NewCityFormState extends State<NewCityForm> {
               children: [
                 Container(
                   child: TextFormField(
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 25.0,
                     ),
@@ -58,7 +58,7 @@ class _NewCityFormState extends State<NewCityForm> {
                       return null;
                     },
                     // autofocus: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.white,
@@ -75,7 +75,7 @@ class _NewCityFormState extends State<NewCityForm> {
                       ),
                     ),
                   ),
-                  padding: EdgeInsets.only(bottom: 20.0),
+                  padding: const EdgeInsets.only(bottom: 20.0),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -83,7 +83,7 @@ class _NewCityFormState extends State<NewCityForm> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    minimumSize: Size(350, 50),
+                    minimumSize: const Size(350, 50),
                     elevation: 0,
                   ),
                   onPressed: () {
@@ -94,11 +94,11 @@ class _NewCityFormState extends State<NewCityForm> {
                       Navigator.pushReplacement<void, void>(
                           context,
                           MaterialPageRoute<void>(
-                              builder: (BuildContext context) => LocationScreen()));
+                              builder: (BuildContext context) => const LocationScreen()));
                     }
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(20.0),
                     child: Text(
                       'ADD CITY',
                       style: TextStyle(

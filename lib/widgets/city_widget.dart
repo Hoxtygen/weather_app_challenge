@@ -5,7 +5,7 @@ import 'package:weather_app_challenge/widgets/city.dart';
 import 'package:weather_app_challenge/widgets/city_error.dart';
 
 class CityWidget extends StatelessWidget {
-  CityWidget(this.city);
+  const CityWidget(this.city, {Key? key}) : super(key: key);
   final CityModel city;
 
   getCityWeather() {
