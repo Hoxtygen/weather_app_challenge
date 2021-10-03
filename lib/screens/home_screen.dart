@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:weather_app_challenge/model/current_weather_model.dart';
 import 'package:weather_app_challenge/model/forecast_model.dart';
+import 'package:weather_app_challenge/screens/hourly_forecast_view.dart';
 import 'package:weather_app_challenge/screens/location_screen.dart';
 import 'package:weather_app_challenge/utils/constants.dart';
-import 'package:weather_app_challenge/widgets/build_daily_widget.dart';
-import 'package:weather_app_challenge/widgets/circle_tab.dart';
 import 'package:weather_app_challenge/widgets/current_weather_view.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,8 +11,8 @@ class HomeScreen extends StatefulWidget {
       this.locationWeatherReport, this.oneCallLocationWeatherReport,
       {Key? key})
       : super(key: key);
-  final locationWeatherReport;
-  final oneCallLocationWeatherReport;
+  final CurrentWeatherModel locationWeatherReport;
+  final ForecastModel oneCallLocationWeatherReport;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -47,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   updateOneCallWeatherReport(dynamic oneCallWeatherInfo) {
-    // print(oneCallWeatherInfo);
     setState(() {
       var now = DateTime.now();
       var nextMidnight = DateTime(now.year, now.month, now.day + 1);
@@ -115,7 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LocationScreen()),
+                              builder: (context) => const LocationScreen(),
+                            ),
                           );
                         });
                       },
@@ -128,53 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 currentDate: date,
                 description: weatherDescription,
               ),
-              Expanded(
-                child: DefaultTabController(
-                    length: 2,
-                    child: Scaffold(
-                      backgroundColor: Colors.transparent,
-                      body: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: TabBar(
-                              labelColor: Colors.white,
-                              indicator: CircleTabIndicator(
-                                  color: Colors.greenAccent, radius: 5),
-                              labelPadding: const EdgeInsets.all(12),
-                              indicatorColor: Colors.yellowAccent,
-                              isScrollable: true,
-                              unselectedLabelColor: Colors.white60,
-                              tabs: const [
-                                Text(
-                                  "Today",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "Tomorrow",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: TabBarView(
-                              children: [
-                                buildHourlySummary(todayHourly),
-                                buildHourlySummary(tomorrowTempHourly),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    )),
+              HourlyForecastView(
+                todayHourly: todayHourly,
+                tomorrowTempHourly: tomorrowTempHourly,
               ),
             ],
           ),
