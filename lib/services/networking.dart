@@ -21,7 +21,7 @@ class NetworkHelper {
   }
 
   dynamic _responseData(http.Response response) {
-    final errorMessage;
+    final   errorMessage;
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body.toString());

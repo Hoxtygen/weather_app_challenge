@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:weather_app_challenge/screens/loading_screen.dart';
 import 'package:weather_app_challenge/widgets/dismiss_keyboard.dart';
 import 'controller/city_notifier.dart';
-import 'controller/forecast_notifier.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 Future main() async {
@@ -38,7 +37,7 @@ class WeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: LoadingScreen(),
       ),

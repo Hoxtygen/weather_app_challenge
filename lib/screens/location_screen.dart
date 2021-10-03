@@ -51,7 +51,7 @@ class LocationScreen extends StatelessWidget {
           constraints: const BoxConstraints.expand(),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 child: Column(
                   children: [
                     Expanded(
@@ -70,7 +70,7 @@ class LocationScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => NewCityForm(),
+                        builder: (context) => const NewCityForm(),
                       ),
                     );
                   },
