@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app_challenge/screens/loading_screen.dart';
@@ -8,6 +9,8 @@ import 'controller/city_notifier.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 Future main() async {
   await dotenv.load(fileName: ".env");
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<CityNotifier>(create: (_) => CityNotifier()),

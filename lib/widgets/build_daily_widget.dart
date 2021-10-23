@@ -6,6 +6,7 @@ import 'package:weather_app_challenge/widgets/daily_weather.dart';
 
 Widget buildHourlySummary(List hourlyForecast) {
   return Wrap(
+      // alignment: WrapAlignment.center,
       direction: Axis.horizontal,
       children: hourlyForecast.map((item) => DailyWeather(item)).toList());
 }
@@ -21,7 +22,6 @@ Widget buildCity(context, List<CityModel> city) {
         }),
   );
 }
-
 
 Widget mapIconToImage(String icon) {
   Image image;

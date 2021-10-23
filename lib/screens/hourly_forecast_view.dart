@@ -14,6 +14,7 @@ class HourlyForecastView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     double width = MediaQuery.of(context).size.width;
     return Expanded(
       child: DefaultTabController(
         length: 2,
@@ -32,18 +33,18 @@ class HourlyForecastView extends StatelessWidget {
                   indicatorColor: Colors.yellowAccent,
                   isScrollable: true,
                   unselectedLabelColor: Colors.white60,
-                  tabs: const [
+                  tabs:  [
                     Text(
                       "Today",
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: width * 0.06,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       "Tomorrow",
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: width * 0.06,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

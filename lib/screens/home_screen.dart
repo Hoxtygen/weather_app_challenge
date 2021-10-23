@@ -67,74 +67,103 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                kPurple,
-                kBlue,
+          body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height,
+          ),
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  kPurple,
+                  kBlue,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            constraints: const BoxConstraints.expand(),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        cityName.toUpperCase(),
+                        style: TextStyle(
+                          fontSize: width * 0.06,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      PopupMenuButton(
+                        color: kPurple,
+                        shape: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        icon: const Icon(
+                          Icons.more_vert,
+                          color: Colors.white,
+                        ),
+                        iconSize: width * 0.06,
+                        itemBuilder: (BuildContext context) => [
+                          PopupMenuItem(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children:  [
+                                const Icon(
+                                  Icons.settings,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  "Manage Cities",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: width*0.03,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            value: "Add cities",
+                          )
+                        ],
+                        onSelected: (choice) {
+                          setState(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LocationScreen(),
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                CurrentWeatherView(
+                  temperature: temperature,
+                  currentDate: date,
+                  description: weatherDescription,
+                ),
+                HourlyForecastView(
+                  todayHourly: todayHourly,
+                  tomorrowTempHourly: tomorrowTempHourly,
+                ),
               ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomCenter,
             ),
           ),
-          constraints: const BoxConstraints.expand(),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      cityName.toUpperCase(),
-                      style: const TextStyle(
-                        fontSize: 25.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    PopupMenuButton(
-                      icon: const Icon(
-                        Icons.more_vert,
-                        color: Colors.white,
-                      ),
-                      iconSize: 30.0,
-                      itemBuilder: (BuildContext context) => [
-                        const PopupMenuItem(
-                          child: Text("Manage Cities"),
-                          value: "Add cities",
-                        )
-                      ],
-                      onSelected: (choice) {
-                        setState(() {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LocationScreen(),
-                            ),
-                          );
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              CurrentWeatherView(
-                temperature: temperature,
-                currentDate: date,
-                description: weatherDescription,
-              ),
-              HourlyForecastView(
-                todayHourly: todayHourly,
-                tomorrowTempHourly: tomorrowTempHourly,
-              ),
-            ],
-          ),
         ),
-      ),
+      )),
     );
   }
 }

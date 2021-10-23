@@ -14,6 +14,7 @@ class CurrentWeatherView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
       child: Row(
@@ -24,20 +25,20 @@ class CurrentWeatherView extends StatelessWidget {
             children: [
               Text(
                 normaliseName(description),
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
-                  fontSize: 25.0,
+                  fontSize: width * 0.06,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: 10, left: 10),
                 child: Text(
                   currentDate,
                   textAlign: TextAlign.left,
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: Colors.white70,
-                    fontSize: 16,
+                    fontSize: width * 0.03,
                   ),
                 ),
               ),
@@ -45,11 +46,11 @@ class CurrentWeatherView extends StatelessWidget {
           ),
           Text(
             "${temperature.toString()}\u00B0\u1d9c",
-            style: const TextStyle(
-              fontSize: 80.0,
+            style: TextStyle(
+              fontSize: width * 0.20,
               fontWeight: FontWeight.w700,
               color: Colors.white38,
-              shadows: <Shadow>[
+              shadows: const <Shadow>[
                 Shadow(
                   offset: Offset(-1.5, -1.5),
                   color: Color(0xffBFA6E8),
