@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:http/http.dart' as http;
 import 'package:weather_app_challenge/utils/app_exception.dart';
 import 'package:weather_app_challenge/widgets/build_daily_widget.dart';

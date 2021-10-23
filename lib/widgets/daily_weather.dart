@@ -15,13 +15,17 @@ class DailyWeather extends StatelessWidget {
     final hour = convert(weather.time);
     final hourlyTime = DateFormat.Hm().format(hour);
     final temp = weather.temperature.toInt();
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
-        width: 110,
-        height: 180,
+        width: width * 0.25,
+        height: height * 0.27,
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(15)),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
           border: Border.all(
             color: Colors.white30,
             width: 2.0,
@@ -31,33 +35,33 @@ class DailyWeather extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 hourlyTime,
-                style: const TextStyle(
+                style:  TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.0,
+                  fontSize:  width * 0.05,
                 ),
               ),
               mapIconToImage(weather.icon),
               Text(
                 normaliseName(weather.description),
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style:  TextStyle(
                   color: Colors.white60,
                   fontWeight: FontWeight.w700,
-                  fontSize: 20,
+                  fontSize:  width * 0.035,
                 ),
               ),
               Padding(
                  padding: const EdgeInsets.only(top: 10),
                 child: Text(
                   "${temp.toString()}\u00B0\u1d9c",
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: width * 0.05,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
